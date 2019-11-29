@@ -11,6 +11,8 @@
     
   3.设计CSS时，把容器属性设置成了浮动，很容易造成页面错位，网页由此变得十分混乱。
     解决方法：不要慌嘻嘻加上这段代码就可以啦。
+    
+    
     .clearfix:after{content:”.”; display:block; height:0; clear:both; visibility:hidden; text-align:center}.clearfix{display:inline-block;}* html .clearfix{height:1%}.clearfix{display:block;}
 
 　　.clearfix:after{content:”.”; display:block; height:0; clear:both; visibility:hidden; text-align:center}
@@ -18,6 +20,8 @@
 　　.clearfix{display:inline-block;}
 
 　　* html .clearfix{height:1%}.clearfix{display:block; }
+  
+  
   经验总结：
   小白建议在做各个模块的时候加上明显的边框有利于布局调试。像 div {border： solid 1px 吉县f00;} 之类的全局规则可以暂时为你查出布局问题。为特定的元素加上边框可帮您找到难以发觉的交错或空白问题。
   
