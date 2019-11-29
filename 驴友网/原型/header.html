@@ -1,0 +1,110 @@
+<script src = "js/getParameter.js"></script>
+<script>
+    $(function () {
+        $(".login").hide();
+
+       $.get("user/showInfo",function (data) {
+           if (data != null) {
+               if (data.flag) {
+                   $("#spanName").html("欢迎回来：" + data.data.name);
+                   $(".login").show();
+                   $(".login_out").hide();
+               }else{
+                   $(".login").hide();
+                   $(".login_out").show();
+               }
+           }
+       });
+    });
+
+    function searchName() {
+        var cid = getParameter("cid");
+        var cname = $("#searchId").val();
+        if (cid == null){
+            location.href = 'route_list.html?cname='+cname;
+        } else{
+            location.href = 'route_list.html?cid='+cid+'&cname='+cname;
+        }
+
+
+      /* $.get("category/findAll",{"cname":cname},function (data) {
+           if (data != null ){
+                location.href = "route_list.html";
+            }
+       });*/
+    }
+
+</script>
+
+<!-- 头部 start -->
+    <header id="header">
+<!--        <div class="top_banner">-->
+<!--            <img src="images/top_banner.jpg" alt="">-->
+<!--        </div>-->
+        <div class="shortcut">
+            <!-- 未登录状态  -->
+            <div class="login_out">
+                <a href="login.html">登录</a>
+                <a href="register.html">注册</a>
+            </div>
+            <!-- 登录状态  -->
+            <div class="login">
+            	
+                <span id="spanName"></span>
+
+                <a href="myfavorite.html" class="collection">我的收藏</a>
+                <a href="javascript:location.href = 'user/exit'">退出</a>
+            </div>
+        </div>
+        <div class="header_wrap">
+            <div class="topbar">
+             
+                <div class="search">
+                    <input id = "searchId" name="searchName" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+                    <a onclick="searchName();" href="javascript:void(0);" class="search-button" style="text-decoration: none">搜索</a>
+                </div>
+                <div class="hottel">
+                    <div class="hot_pic">
+                        <img src="images/hot_tel.jpg" alt="">
+                    </div>
+                    <div class="hot_tel">
+                        <p class="hot_time">客服热线(9:00-6:00)</p>
+                        <p class="hot_num">400-000-1111</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- 头部 end -->
+     <!-- 首页导航 -->
+    <div class="navitem">
+        <ul class="nav" id="ul_nav">
+           <li class="nav-active"><a href="index.html">首页</a></li>
+          <li><a href="route_list.html">门票</a></li>
+            <li><a href="route_list.html">酒店</a></li>
+            <li><a href="route_list.html">香港车票</a></li>
+            <li><a href="route_list.html">出境游</a></li>
+            <li><a href="route_list.html">国内游</a></li>
+            <li><a href="route_list.html">港澳游</a></li>
+            <li><a href="route_list.html">抱团定制</a></li>
+            <li><a href="route_list.html">全球自由行</a></li>
+            <li><a href="favoriterank.html">收藏排行榜</a></li>
+        </ul>
+    </div>
+<script>
+    $(function () {
+
+        $.post("category/findCategroy", function (data) {
+            var str = '<li class="nav-active"><a href="index.html">首页</a></li>';
+            //[{},{},{}]
+            if (data != null) {
+                for (var i = 0; i < data.length; i++) {
+                    //data[i].cname;
+                    str+=' <li><a href="route_list.html?cid='+data[i].cid+'">'+data[i].cname+'</a></li>';
+                }
+            }
+            str +='<li><a href="favoriterank.html">收藏排行榜</a></li>';
+            $("#ul_nav").html(str);
+        });
+    });
+</script>
